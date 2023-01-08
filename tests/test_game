@@ -1,0 +1,32 @@
+import unittest
+import sys
+
+# Add new path to import game
+sys.path.append(sys.path[0][:-5])
+from game.puissance4 import Partie
+
+class TestGame(unittest.TestCase) :
+
+    def test_create_game(self) :
+        p = Partie()
+        self.assertIsInstance(p, Partie)
+
+    def test_ajout_jeton(self) :
+        p = Partie(taille=(6, 7))
+        self.assertTrue(p.ajout_jeton(0, 0))
+        self.assertTrue(p.ajout_jeton(0, 0))
+        self.assertTrue(p.ajout_jeton(0, 0))
+        self.assertTrue(p.ajout_jeton(0, 0))
+        self.assertTrue(p.ajout_jeton(0, 0))
+        self.assertTrue(p.ajout_jeton(0, 0))
+        self.assertFalse(p.ajout_jeton(0, 0))
+        self.assertFalse(p.ajout_jeton(-1, 0))
+        self.assertFalse(p.ajout_jeton(0, 2))
+    
+    def test_gagnant(self) :
+        p = Partie(taille_vainqueur=3)
+        p.ajout_jeton(colonne=0, joueur_id=0)
+
+
+if __name__ == "__main__" :
+    unittest.main()
