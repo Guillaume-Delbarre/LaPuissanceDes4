@@ -35,9 +35,9 @@ class Partie:
         return False
     
     def is_finished(self) -> bool :
-        return self.vainqueur() in self.joueurs_car
+        return self.vainqueur()[0]
 
-    def vainqueur(self) -> int :
+    def vainqueur(self) -> tuple[bool,int] :
         # Lignes
         for ligne in self.tableau :
             for index in range(self.largeur - self.taille_vainqueur + 1) :
@@ -49,10 +49,10 @@ class Partie:
                             win = False
                             break
                     if win :
-                        return base
+                        return (True,base)
 
         # Colonnes
-        for colonne in self.largeur :
+        for colonne in range(self.largeur) :
             for index in range(self.hauteur - self.taille_vainqueur + 1) :
                 base = self.tableau[index][colonne]
                 if base in self.joueurs_car :
@@ -62,8 +62,25 @@ class Partie:
                             win = False
                             break
                     if win : 
-                        return base
+                        return (True,base)
+                    
         # Diagonnales
+        for colonne in range(self.largeur) :
+            for ligne in range(self.hauteur - self.taille_vainqueur + 1) :
+                base = self.tableau[ligne][colonne]
+                for direction in [1, -1] :
+                    if base in self.joueurs_car :
+                        win = True
+                        for in_a_row in range(self.taille_vainqueur) :
+                            if 0 <= colonne + direction*in_a_row < self.largeur and 0 <= ligne + in_a_row < self.hauteur :
+                                if base != self.tableau[ligne + in_a_row][colonne + direction*in_a_row] :
+                                    win = False
+                                    break
+                                if win :
+                                    return (True,base)
+        
+        return (False, None)
+
 
 
 if __name__ == "__main__" :
