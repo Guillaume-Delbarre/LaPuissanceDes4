@@ -18,6 +18,8 @@ class Partie:
         self.taille_vainqueur = taille_vainqueur # Nombre de jeton nécessaire pour gagner
 
     def __str__(self) -> str:
+        """Permet d'afficher le tableau avec un print
+        """
         return str(self.tableau) + "\n  " + "  ".join([str(i) for i in range(self.largeur)])
 
     def ajout_jeton(self, colonne: int, joueur_id: int) -> bool :
@@ -35,7 +37,14 @@ class Partie:
         return False
     
     def is_finished(self) -> bool :
-        return self.vainqueur()[0]
+        """Retourne True si la game est terminée, ce qui signifie qu'une personne a gagné ou que tous les jetons ont été posés
+        """
+        # Cas où il y a un vainqueur
+        if self.vainqueur()[0] :
+            return True
+        
+        # Cas où toutes les cases sont remplies
+        #TODO
 
     def vainqueur(self) -> tuple[bool,int] :
         # Lignes
@@ -63,7 +72,7 @@ class Partie:
                             break
                     if win : 
                         return (True,base)
-                    
+                   
         # Diagonnales
         for colonne in range(self.largeur) :
             for ligne in range(self.hauteur - self.taille_vainqueur + 1) :
@@ -76,21 +85,7 @@ class Partie:
                                 if base != self.tableau[ligne + in_a_row][colonne + direction*in_a_row] :
                                     win = False
                                     break
-                                if win :
-                                    return (True,base)
+                        if win :
+                            return (True,base)
         
         return (False, None)
-
-
-
-if __name__ == "__main__" :
-    print('lancé')
-    p = Partie()
-    p.ajout_jeton(0, 0)
-    p.ajout_jeton(5, 1)
-    p.ajout_jeton(2, 1)
-    # p.ajout_jeton(3, 1)
-    p.ajout_jeton(4, 1)
-    p.ajout_jeton(6, 1)
-    print(p)
-    print(p.vainqueur())
