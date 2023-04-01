@@ -9,6 +9,8 @@ class Partie:
     
     # Méthodes
     def __init__(self, joueurs_car = [1, 2], taille = (6, 7), taille_vainqueur = 4) -> None :
+        """Création de la partie
+        """
         # Création du tableau
         self.hauteur = taille[0]
         self.largeur = taille[1]
@@ -44,9 +46,16 @@ class Partie:
             return True
         
         # Cas où toutes les cases sont remplies
-        #TODO
+        if not 0 in self.tableau :
+            return True
+        
+        # Par défaut non fini
+        return False
 
     def vainqueur(self) -> tuple[bool,int] :
+        """Fonction permettant de savoir si la partie est gagné par l'un des deux joueurs et affiche le joueur gagnant le cas échéant
+        Retourne en [0] si la partie est gagné par un joueur et en [1] la valeur du joueur
+        """
         # Lignes
         for ligne in self.tableau :
             for index in range(self.largeur - self.taille_vainqueur + 1) :
