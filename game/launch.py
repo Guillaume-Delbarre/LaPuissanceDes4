@@ -37,4 +37,10 @@ if __name__ == "__main__" :
     while not p.is_finished() :
         joueurs[p.to_play].placer_jeton(partie=p, id_joueur=p.to_play)
     
-    print("partie finie")
+    vainqueur = p.vainqueur()
+
+    print(p)
+    if vainqueur[0] :
+        print(f"Le joueur numéro {vainqueur[1] + 1} a gagné")
+    else :
+        print("Match nul")

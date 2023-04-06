@@ -11,7 +11,7 @@ class Humain(JoueurInterface):
         place = False
         while not place :
             try :
-                pos = int(input(f"Indiquez la colonne où jouer : \n {partie}"))
+                pos = int(input(f"Indiquez la colonne où jouer : \n {partie}\n"))
                 place = partie.ajout_jeton(colonne=pos, joueur_id=id_joueur)
             except :
                 print("La valeurs entrée n'est pas correcte, veuillez entrer un nombre")
