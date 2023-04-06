@@ -19,6 +19,8 @@ class Partie:
         self.joueurs_car = joueurs_car # Valeur du jeton inscrite dans le tableau
         self.taille_vainqueur = taille_vainqueur # Nombre de jeton nécessaire pour gagner
 
+        self.to_play = 0 # Id du joueur dont c'est le tour
+
     def __str__(self) -> str:
         """Permet d'afficher le tableau avec un print
         """
@@ -35,6 +37,9 @@ class Partie:
         for ligne in reversed(range(self.hauteur)) :
             if self.tableau[ligne][colonne] == 0 :
                 self.tableau[ligne][colonne] = self.joueurs_car[joueur_id]
+                
+                # Change le joueur qui doit jouer
+                self.to_play = 1 if joueur_id == 0 else 0
                 return True
         return False
     
